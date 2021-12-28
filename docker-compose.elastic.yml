@@ -1,0 +1,27 @@
+version: '3'
+services:
+  esnode1:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          #memory: 50M
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+      - 9300:9300
+  kibana:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          #memory: 50M
+    image: docker.elastic.co/kibana/kibana:7.15.1
+    environment:
+      - ELASTICSEARCH_HOSTS=http://esnode1:9200
+    ports:
+      - 5601:5601
+    depends_on:
+      - esnode1
