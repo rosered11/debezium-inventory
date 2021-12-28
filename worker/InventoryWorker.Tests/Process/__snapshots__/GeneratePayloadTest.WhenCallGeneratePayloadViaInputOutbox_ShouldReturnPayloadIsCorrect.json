@@ -1,0 +1,17 @@
+{
+  "receiveOrderNo": "RC-211100005",
+  "warehouseLocationNo": "wh",
+  "eventType": "abcd",
+  "parts": [
+    {
+      "no": "partNo111111",
+      "qty": 150,
+      "uom": "Unit"
+    },
+    {
+      "no": "partNo333333",
+      "qty": 300,
+      "uom": "Unit"
+    }
+  ]
+}

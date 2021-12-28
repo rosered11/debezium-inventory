@@ -1,0 +1,22 @@
+﻿{
+  "profiles": {
+    "InventoryWorker": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "GroupId": "test",
+        "Hosts": "localhost:9092",
+        "Topic": "inbound.events.ReceiveOrder",
+        "External__Inventory__BaseUrl": "http://localhost:8088",
+        "External__Inventory__SecretKey": "secret",
+        "External__Inventory__ReceiveEvent": "/api/inventory/receive/event-handler",
+        "External__Inventory__RequestEvent": "/api/inventory/request/event-handler",
+        "External__Inventory__EventType": "InventoryReceive",
+        "Consumer__Retry__Max": "3",
+        "Process__Retry__Max": "3",
+        "WarehouseLocationNo": "mock"
+      }
+    }
+  }
+}

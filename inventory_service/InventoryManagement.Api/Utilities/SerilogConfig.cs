@@ -18,7 +18,7 @@ namespace InventoryManagement.Api.Utilities
                     .WriteTo.Elasticsearch(
                         new ElasticsearchSinkOptions(new Uri(elasticUri))
                         {
-                            IndexFormat = $"applogs-wams-inventory-api-{context.HostingEnvironment.EnvironmentName?.ToLower().Replace(".", "-")}-{DateTime.Now:yyyy-MM}",
+                            IndexFormat = $"applogs-inventory-api-{context.HostingEnvironment.EnvironmentName?.ToLower().Replace(".", "-")}-{DateTime.Now:yyyy-MM}",
                             AutoRegisterTemplate = true,
                             NumberOfShards = 2,
                             NumberOfReplicas = 1

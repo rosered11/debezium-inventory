@@ -26,14 +26,14 @@
       "environmentVariables": {
         //"ASPNETCORE_ENVIRONMENT": "Development",
         "CUSTOMCONNSTR_ApplicationDbContext": "Host=localhost;Database=postgres;Username=postgres;Password=postgres",
-        "Authentication__Secret": "QmEQ1YOH4cKAjLVCopJuBsz8qi7xopJYTWqgK2I8Obd3wJUCIzdw89UXiiQ78JkF",
+        "Authentication__Secret": "secret",
         "Elastic__Url": "http://elastic:9200",
         "Serilog__WriteTo__0__Name": "Console",
-        "External__Masterdata__BaseUrl": "https://2jamt01wam01",
+        "External__Masterdata__BaseUrl": "https://my-directus",
         "External__Masterdata__GetPart": "/items/parts?fields=no,name,uom_id.*",
         "External__Masterdata__GetWarehouse": "/items/warehouse_locations?fields=code,name,description",
-        "External__Masterdata__SecretToken": "bcbac640-7e16-4662-aafe-33ad54aa2f61",
-        "Authentication__Worker__ApiKey": "5186695d-f405-4457-a1cb-6359a784b96c"
+        "External__Masterdata__SecretToken": "secret",
+        "Authentication__Worker__ApiKey": "apikey"
       }
     }
   }

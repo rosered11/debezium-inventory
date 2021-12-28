@@ -1,0 +1,71 @@
+version: '3.8'
+# networks:
+#   inventory-management_default:
+#     external: true
+services:
+  # worker1:
+  #   restart: always
+  #   # networks:
+  #   #   - default
+  #   #   - inventory-management_default
+  #   build:
+  #     context: .
+  #   depends_on:
+  #     - kafka
+  #   environment:
+  #     - GroupId=inventory
+  #     - Hosts=kafka:29092
+  #     - Topic=inbound.events.ReceiveOrder
+  #     - External__Inventory__BaseUrl=http://app:8088
+  #     - External__Inventory__SecretKey=secret
+  #     - External__Inventory__ReceiveEvent=/api/inventory/receive/event-handler
+  #     - External__Inventory__EventType=InventoryReceive
+  #     - Consumer__Retry__Max=3
+  #     - Process__Retry__Max=3
+  #     - WarehouseLocationNo=WHBKK
+  zookeeper:
+    image: debezium/zookeeper:1.7
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+  kafka:
+    image: debezium/kafka:1.7
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      - ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_LISTENERS=LISTENER_CONTAINER://kafka:29092,LISTENER_HOST://localhost:9092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=LISTENER_CONTAINER:PLAINTEXT,LISTENER_HOST:PLAINTEXT
+      - KAFKA_INTER_BROKER_LISTENER_NAME=LISTENER_CONTAINER
+      - KAFKA_LISTENERS=LISTENER_CONTAINER://kafka:29092,LISTENER_HOST://kafka:9092
+  kafka_ui:
+    image: provectuslabs/kafka-ui:latest
+    depends_on:
+      - kafka
+    ports:
+      - "8080:8080"
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:29092
+  connector:
+    image: debezium/connect:1.7
+    ports:
+      - "8083:8083"
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:29092
+      - GROUP_ID=1
+      - CONFIG_STORAGE_TOPIC=my_connect_configs
+      - OFFSET_STORAGE_TOPIC=my_connect_offsets
+      - STATUS_STORAGE_TOPIC=my_connect_statuses
+    depends_on:
+      - postgres
+      - kafka
+  postgres:
+    image: debezium/example-postgres:1.7
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
